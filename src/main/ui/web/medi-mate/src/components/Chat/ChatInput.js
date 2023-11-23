@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
-import { IconArrowUp } from '@tabler/icons-react'; // Ensure you have this library installed
-
+import { IconArrowUp } from '@tabler/icons-react';
+import MicButton from '../SpeechRecognition/MicButton';
 const ChatInput = ({ onSend }) => {
   const [content, setContent] = useState('');
 
@@ -14,6 +14,10 @@ const ChatInput = ({ onSend }) => {
     }
 
     setContent(value);
+  };
+
+  const handleTranscription = (transcribedText) => {
+    setContent(transcribedText);
   };
 
   const handleSend = () => {
@@ -55,6 +59,9 @@ const ChatInput = ({ onSend }) => {
       <button onClick={handleSend}>
         <IconArrowUp className="absolute right-2 bottom-3 h-8 w-8 hover:cursor-pointer rounded-full p-1 bg-blue-500 text-white hover:opacity-80" />
       </button>
+
+      <MicButton onTranscription={handleTranscription} />
+
     </div>
   );
 };
