@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { MdMic, MdStop } from 'react-icons/md';
 
-const MicButton = ({ onTranscription }) => {
+const MicButton = ({ onTranscription, updatePlaceholder }) => {
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef(null);
 
@@ -22,6 +22,7 @@ const MicButton = ({ onTranscription }) => {
 
       recognitionRef.current.start();
       setIsListening(true);
+      updatePlaceholder(true);
     } else {
       alert('Speech recognition not supported in this browser.');
     }
@@ -31,6 +32,7 @@ const MicButton = ({ onTranscription }) => {
     if (recognitionRef.current) {
       recognitionRef.current.stop();
       setIsListening(false);
+      updatePlaceholder(false);
     }
   };
 
