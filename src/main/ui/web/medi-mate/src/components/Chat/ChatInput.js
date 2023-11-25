@@ -4,7 +4,7 @@ import MicButton from '../SpeechRecognition/MicButton';
 const ChatInput = ({ onSend }) => {
   const [content, setContent] = useState('');
   const [placeholder, setPlaceholder] = useState('Type a MediChat...');
-
+  const [messageSent, setMessageSent] = useState(false);
   const textareaRef = useRef(null);
 
   const handleChange = (e) => {
@@ -34,6 +34,7 @@ const ChatInput = ({ onSend }) => {
     }
     onSend({ role: "user", content });
     setContent("");
+    setMessageSent(true);
   };
 
   const handleKeyDown = (e) => {
@@ -67,7 +68,12 @@ const ChatInput = ({ onSend }) => {
         <IconArrowUp className="absolute right-2 bottom-3 h-8 w-8 hover:cursor-pointer rounded-full p-1 bg-blue-500 text-white hover:opacity-80" />
       </button>
 
-      <MicButton onTranscription={handleTranscription} updatePlaceholder = {updatePlaceholder}/>
+      <MicButton 
+                 onTranscription={handleTranscription} 
+                 updatePlaceholder = {updatePlaceholder} 
+                 messageSent = {messageSent} 
+                 setMessageSent = {setMessageSent}
+      />
 
     </div>
   );

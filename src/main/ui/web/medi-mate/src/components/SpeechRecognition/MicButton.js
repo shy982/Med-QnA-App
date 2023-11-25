@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MdMic, MdStop } from 'react-icons/md';
 
-const MicButton = ({ onTranscription, updatePlaceholder }) => {
+const MicButton = ({ onTranscription, updatePlaceholder, messageSent, setMessageSent }) => {
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef(null);
 
@@ -35,7 +35,12 @@ const MicButton = ({ onTranscription, updatePlaceholder }) => {
       updatePlaceholder(false);
     }
   };
-
+  useEffect(() => {
+    if(messageSent){
+      stopListening();
+      setMessageSent(false);
+    }
+  });
   const toggleListening = () => {
     if (isListening) {
       stopListening();
