@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import Chat from '../components/Chat/Chat';
 import Footer from '../components/Layout/Footer';
 import Navbar from '../components/Layout/Navbar';
+import { API_BASE_URL, API_ENDPOINTS } from './APIConfig';
 
 const Home = () => {
   const [messages, setMessages] = useState([]);
@@ -22,7 +23,7 @@ const Home = () => {
     setLoading(true);
   
     try {
-      const response = await fetch("http://127.0.0.1:5000/v1/chat/simple", {
+      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.SIMPLE_CHAT}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
