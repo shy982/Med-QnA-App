@@ -8,8 +8,23 @@ import { API_BASE_URL, API_ENDPOINTS } from './APIConfig';
 const Home = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [selectedModel, setSelectedModel] = useState('Debug');
   const messagesEndRef = useRef(null);
+
+  const getApiEndpoint = () => {
+    switch (selectedModel) {
+      case 'Debug':
+        return API_ENDPOINTS.SIMPLE_CHAT;
+      case 'Open AI':
+        return API_ENDPOINTS.OPENAI_CHAT;
+      case 'RAG + Open AI':
+        return API_ENDPOINTS.RAG_CHAT;
+      case 'RAG + LLAMA':
+        return API_ENDPOINTS.RAG_LLAMA;
+      default:
+        return API_ENDPOINTS.SIMPLE_CHAT;
+    }
+  };
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
@@ -23,7 +38,8 @@ const Home = () => {
     setLoading(true);
   
     try {
-      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.SIMPLE_CHAT}`, {
+      const endpoint = getApiEndpoint();
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -87,6 +103,10 @@ const Home = () => {
     ]);
   };
 
+  const handleModelChange = (model) => {
+    setSelectedModel(model);
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -118,6 +138,7 @@ const Home = () => {
               loading={loading}
               onSend={handleSend}
               onReset={handleReset}
+              onModelChange={handleModelChange}
             />
             <div ref={messagesEndRef} />
           </div>
