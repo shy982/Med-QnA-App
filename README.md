@@ -3,6 +3,12 @@ Cross-Platform seamless chat application that performs CDQA + RAG tailored towar
 
 # Overview
 
+## Setup: 
+
+1. Have ``git`` installed on your system. In a terminal navigate to a directory to save this project. 
+2. Do ``git clone git@github.com:shy982/Med-QnA-App.git``.
+3. Do ``cd ./Med-QnA-App`` to enter root directory of project. 
+
 ## Requirements: 
 
 1. Running the app on your machine (No dev): Have Docker installed on your Mac/PC: The application is now containerized in a docker environment and the deployment file is added in the source directory under `docker-compose.yml`. 
@@ -14,7 +20,7 @@ Cross-Platform seamless chat application that performs CDQA + RAG tailored towar
 
 To run the application (Production build deployment for demo purpose only, not a dev environment): 
 
-1. Navigate to the project root folder in your terminal. 
+1. Navigate to the project root directory in your terminal. 
 2. Run ``docker-compose up``. 
 3. Wait a while for frontend and backend containers to spawn. 
 4. Go to http://localhost:3000/ to start chatting
