@@ -11,4 +11,4 @@
 
 `` npm start ``
 
-- Visit http://localhost:3000/
+- Visit http://localhost:3000/ for UI (For chatting to work, backend has to be running on port ``5000``. Refer: ``src/main/marshaler/README.md``)
