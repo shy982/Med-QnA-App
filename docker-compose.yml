@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./src/main/ui/web/medi-mate
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+  backend:
+    build:
+      context: ./src/main/marshaler
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
