@@ -27,7 +27,7 @@ def run_rag_pipeline(query, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
     Question: {question}"""
     prompt = ChatPromptTemplate.from_template(template)
     
-    docs_file_path = f"./openai_embeddings/{dataset}/doc_embeddings.pkl"
+    docs_file_path = f"./dataset/{dataset}/documents.pkl"
     with open(docs_file_path, "rb") as file:
         docs = pickle.load(file)
     
