@@ -4,6 +4,7 @@ import Chat from '../components/Chat/Chat';
 import Footer from '../components/Layout/Footer';
 import Navbar from '../components/Layout/Navbar';
 import { API_BASE_URL, API_ENDPOINTS } from './APIConfig';
+import logo from '../store/logo.png'
 
 const Home = () => {
   const [messages, setMessages] = useState([]);
@@ -124,8 +125,8 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Medical Q&A App</title>
-        {/* Other head elements */}
+        <title>MediMate - Biomedical Q&A Assistant!</title>
+        <link rel="icon" href={logo} type="image/png" />
       </Helmet>
 
       <div className="flex flex-col h-screen">
