@@ -5,13 +5,18 @@ import Footer from '../components/Layout/Footer';
 import Navbar from '../components/Layout/Navbar';
 import { API_BASE_URL, API_ENDPOINTS } from './APIConfig';
 import logo from '../store/logo.png'
+import bg from '../store/bg.png'
 
 const Home = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState('Debug');
   const messagesEndRef = useRef(null);
-
+  const pageStyle = {
+    backgroundImage: `url(${bg})`, 
+    backgroundSize: 'cover', 
+    backgroundRepeat: 'no-repeat',
+  };
   const getApiEndpoint = () => {
     switch (selectedModel) {
       case 'Debug':
@@ -128,7 +133,7 @@ const Home = () => {
         <title>MediMate - Biomedical Q&A Assistant!</title>
         <link rel="icon" href={logo} type="image/png" />
       </Helmet>
-
+      {/* style={pageStyle} */}
       <div className="flex flex-col h-screen">
         <Navbar />
 
