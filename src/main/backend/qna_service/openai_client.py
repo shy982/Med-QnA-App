@@ -10,4 +10,4 @@ def request_gpt_turbo(messages):
                               prompt = "Give a friendly answer to the query" + qry,
                               max_tokens = 200
                           )
-    return answer.choices[0].text
+    return answer.choices[0].text.strip()
