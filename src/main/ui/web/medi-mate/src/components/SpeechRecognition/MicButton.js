@@ -52,7 +52,7 @@ const MicButton = ({ onTranscription, updatePlaceholder, messageSent, setMessage
   return (
     <button 
       onClick={toggleListening} 
-      className={`absolute right-11 bottom-3 h-8 w-8 hover:cursor-pointer rounded-full p-1 ${
+      className={`absolute right-11 bottom-1.5 h-8 w-8 hover:cursor-pointer rounded-full p-1 ${
         isListening ? "bg-red-500 animate-pulse" : "bg-green-500"
       } text-white hover:opacity-80 flex items-center justify-center`}
     >

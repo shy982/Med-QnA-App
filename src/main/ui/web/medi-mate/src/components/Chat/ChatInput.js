@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { IconArrowUp } from '@tabler/icons-react';
 import MicButton from '../SpeechRecognition/MicButton';
+import FileUploader from '../UploadContext/FileUploader';
 const ChatInput = ({ onSend }) => {
   const [content, setContent] = useState('');
   const [placeholder, setPlaceholder] = useState('Type a MediChat...');
   const [messageSent, setMessageSent] = useState(false);
   const textareaRef = useRef(null);
+
+  const handleFileUpload = (fileContent) => {
+    console.log('Uploaded file content:', fileContent);
+  };
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -52,7 +57,8 @@ const ChatInput = ({ onSend }) => {
   }, [content]);
 
   return (
-    <div className="relative">
+    <div className="relative flex">
+      <FileUploader onFileUpload={handleFileUpload} />
       <textarea
         ref={textareaRef}
         className="min-h-[44px] rounded-lg pl-4 pr-12 py-2 w-full focus:outline-none focus:ring-1 focus:ring-neutral-300 border-2 border-neutral-200"
@@ -63,9 +69,8 @@ const ChatInput = ({ onSend }) => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-
       <button onClick={handleSend}>
-        <IconArrowUp className="absolute right-2 bottom-3 h-8 w-8 hover:cursor-pointer rounded-full p-1 bg-blue-500 text-white hover:opacity-80" />
+        <IconArrowUp className="absolute right-2 bottom-1.5 h-8 w-8 hover:cursor-pointer rounded-full p-1 bg-blue-500 text-white hover:opacity-80" />
       </button>
 
       <MicButton 
