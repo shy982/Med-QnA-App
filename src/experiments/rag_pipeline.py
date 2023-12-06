@@ -35,7 +35,7 @@ def run_rag_pipeline(query, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
         ls = []
         for doc in _docs:
             if doc.page_content in docs:
-                ls.append(docs[doc.page_content]["text"][:400])
+                ls.append(docs[doc.page_content]["text"][:800])
         return ls
     
     chain = ({"context": retriever | format_docs, "question": RunnablePassthrough()} 
