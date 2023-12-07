@@ -49,5 +49,9 @@ def run_rag_pipeline(query, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
 
 
 if __name__ == "__main__":
-    print(run_rag_pipeline(query="Do Cholesterol Statin Drugs Cause Breast Cancer?"))
-    
+    print(run_rag_pipeline(
+        query="Do Cholesterol Statin Drugs Cause Breast Cancer?",
+        dataset="nfcorpus"))
+    print(run_rag_pipeline(
+        query="Do mitochondria play a role in remodelling lace plant leaves during programmed cell death?",
+        dataset="pubmedqa"))
