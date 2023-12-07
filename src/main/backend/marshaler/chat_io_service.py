@@ -4,15 +4,20 @@ import time
 import os
 import openai
 from dotenv import load_dotenv
-from qna_service.openai_client import request_gpt_turbo
-from qna_service.openai_client import run_rag_pipeline
+# Uncomment for dev
+# from src.main.backend.qna_service.openai_client import request_gpt_no_rag 
+# from src.main.backend.qna_service.openai_client import run_rag_pipeline 
 
+# Comment for dev
+from qna_service.openai_client import request_gpt_no_rag 
+from qna_service.openai_client import run_rag_pipeline 
 
 app = Flask(__name__)
 CORS(app)
 
 # TODO: Maintain conversation i.e. previous chats to be taken into account
 # TODO: API to process uploaded document text and consider as context.
+# TODO: Dropdown changes, API model change endpoints etc  -- DONE
 
 @app.route('/v1/chat/simple', methods=['POST'])
 def process_message_simple_test():
@@ -28,21 +33,18 @@ def process_message_simple_test():
 def process_message_with_chatgpt():
     data = request.json
     messages = data.get('messages', [])
-    response = request_gpt_turbo(messages)
+    model = request.args.get('model', default='gpt-3.5-turbo-instruct')
+    response = request_gpt_no_rag(messages, model)
     return response
 
-@app.route('/v1/chat/rag', methods=['POST'])
+@app.route('/v1/chat/openai/rag', methods=['POST'])
 def process_message_with_rag_chatgpt():
     data = request.json
     messages = data.get('messages', [])
-    answer = run_rag_pipeline(messages)
-    return answer.strip()
-
-@app.route('/v2/chat/rag', methods=['POST'])
-def process_message_with_rag_llama():
-    data = request.json
-    # TBD 
-    return None
+    model = request.args.get('model', default='gpt-3.5-turbo-instruct')
+    dataset = request.args.get('dataset', default='nfcorpus')
+    response = run_rag_pipeline(messages, model, dataset)
+    return response
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
