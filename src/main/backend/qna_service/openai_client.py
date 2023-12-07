@@ -10,14 +10,15 @@ from langchain.vectorstores import FAISS
 import os
 import pickle
 
-def request_gpt_turbo(messages):
+def request_gpt_no_rag(messages, model):
     load_dotenv()
     client = openai.OpenAI()
     # prompt = "\n".join([message['content'] for message in messages])
+    # print(messages)
     qry = messages[-1]['content']
     answer = client.completions.create(
-                              model="gpt-3.5-turbo-instruct",
-                              prompt = "Give a friendly answer to the query" + qry,
+                              model=model,
+                              prompt = "Answer the question briefly: " + qry,
                               max_tokens = 200
                           )
     return answer.choices[0].text.strip()
@@ -26,8 +27,8 @@ def run_rag_pipeline(messages, model="gpt-3.5-turbo-instruct", dataset="nfcorpus
     load_dotenv()
     query = messages[-1]['content']
     # Load index from file
-    print(os.getcwd())
     loaded_faiss_vs = FAISS.load_local(
+        # folder_path=f"src/main/backend/qna_service/datastore/vectordb/faiss/{dataset}/", # Uncomment for dev
         folder_path=f"./qna_service/datastore/vectordb/faiss/{dataset}/",
         embeddings=OpenAIEmbeddings())
     retriever = loaded_faiss_vs.as_retriever(search_kwargs={"k": 5})
@@ -39,6 +40,7 @@ def run_rag_pipeline(messages, model="gpt-3.5-turbo-instruct", dataset="nfcorpus
     Question: {question}"""
     prompt = ChatPromptTemplate.from_template(template)
 
+    # docs_file_path = f"src/main/backend/qna_service/datastore/dataset/{dataset}/documents.pkl" # Uncomment for dev
     docs_file_path = f"./qna_service/datastore/dataset/{dataset}/documents.pkl"
     with open(docs_file_path, "rb") as file:
         docs = pickle.load(file)
@@ -58,4 +60,4 @@ def run_rag_pipeline(messages, model="gpt-3.5-turbo-instruct", dataset="nfcorpus
     # Run the RAG pipeline
     response = chain.invoke(query)
 
-    return response
+    return response.strip()
