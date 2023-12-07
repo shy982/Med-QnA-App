@@ -1,0 +1,8 @@
+Flask==2.2.2
+Flask_Cors==4.0.0
+Werkzeug==2.2.2
+openai==1.3.7
+langchain==0.0.342
+tiktoken==0.5.2
+python-dotenv==0.21.0
+faiss-cpu==1.7.4
