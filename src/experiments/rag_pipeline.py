@@ -55,6 +55,7 @@ if __name__ == "__main__":
         query="Do mitochondria play a role in remodelling lace plant leaves during programmed cell death?",
         dataset="pubmedqa"))
     print(run_rag_pipeline(
-        query="what is the origin of COVID-19 (seeking range of information about the SARS-CoV-2 virus's origin, including its evolution, animal source, and first transmission into humans)",
+        query="what is the origin of COVID-19 (seeking range of information about the SARS-CoV-2 virus's origin, "
+              "including its evolution, animal source, and first transmission into humans)",
         dataset="cord19"))
     
