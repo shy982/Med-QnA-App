@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import Chat from '../components/Chat/Chat';
 import Footer from '../components/Layout/Footer';
 import Navbar from '../components/Layout/Navbar';
-import { API_BASE_URL, API_ENDPOINTS } from './APIConfig';
+import { API_BASE_URL, API_ENDPOINTS, MODELS_AVAILABLE } from './APIConfig';
 import logo from '../store/logo.png'
 import bg from '../store/bg.png'
 
@@ -11,6 +11,8 @@ const Home = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState('Debug');
+  const [selectedDataset, setSelectedDataset] = useState('nfcorpus');
+  const [isRAGEnabled, setIsRAGEnabled] = useState(false);
   const messagesEndRef = useRef(null);
   const pageStyle = {
     backgroundImage: `url(${bg})`, 
@@ -18,19 +20,24 @@ const Home = () => {
     backgroundRepeat: 'no-repeat',
   };
   const getApiEndpoint = () => {
-    switch (selectedModel) {
-      case 'Debug':
-        return API_ENDPOINTS.SIMPLE_CHAT;
-      case 'Open AI':
-        return API_ENDPOINTS.OPENAI_CHAT;
-      case 'RAG + Open AI':
-        return API_ENDPOINTS.RAG_CHAT;
-      case 'RAG + LLAMA':
-        return API_ENDPOINTS.RAG_LLAMA;
-      default:
-        return API_ENDPOINTS.SIMPLE_CHAT;
-    }
+    if(selectedModel === "Debug")
+      return API_ENDPOINTS.SIMPLE_CHAT;
+    if(isRAGEnabled)
+      return API_ENDPOINTS.RAG_CHAT;
+    else
+      return API_ENDPOINTS.OPENAI_CHAT;
   };
+
+  const getSelectedModel = () => {
+    switch(selectedModel){
+      case "OpenAI gpt-3.5-turbo":
+        return MODELS_AVAILABLE.GPT_3_5;
+      case "OpenAI da-vinci-003":
+        return MODELS_AVAILABLE.DA_VINCI;
+      default:
+        return MODELS_AVAILABLE.GPT_3_5;
+    }
+  }
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
@@ -45,7 +52,9 @@ const Home = () => {
   
     try {
       const endpoint = getApiEndpoint();
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      const model = getSelectedModel(selectedModel);
+      const dataset = selectedDataset;
+      const response = await fetch(`${API_BASE_URL}${endpoint}?model=${encodeURIComponent(model)}&dataset=${encodeURIComponent(dataset)}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -111,12 +120,21 @@ const Home = () => {
 
   const handleModelChange = (model) => {
     setSelectedModel(model);
+    setIsRAGEnabled(false);
+    handleDatasetChange('nfcorpus');
   };
 
+  const handleDatasetChange = (dataset) => {
+    setSelectedDataset(dataset);
+  };
+
+  const handleRAGToggle = () => {
+  setIsRAGEnabled(!isRAGEnabled);
+  setSelectedDataset('nfcorpus');
+  };
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
 
   useEffect(() => {
     setMessages([
@@ -145,6 +163,9 @@ const Home = () => {
               onSend={handleSend}
               onReset={handleReset}
               onModelChange={handleModelChange}
+              onDatasetChange={handleDatasetChange}
+              isRAGEnabled = {isRAGEnabled}
+              handleRAGToggle={handleRAGToggle}
             />
             <div ref={messagesEndRef} />
           </div>

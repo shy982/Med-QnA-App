@@ -1,23 +1,15 @@
 import React from 'react';
-// If you want to use PropTypes for type checking
-// import PropTypes from 'prop-types';
 
 const ResetChat = ({ onReset }) => {
   return (
     <div className="flex flex-row items-center">
       <button
-        className="text-sm sm:text-base text-neutral-900 font-semibold rounded-lg px-4 py-2 bg-neutral-200 hover:bg-neutral-300 focus:outline-none focus:ring-1 focus:ring-neutral-300"
+       className="text-white font-semibold rounded-lg px-4 py-2 bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-1 focus:ring-red-500"
         onClick={() => onReset()}
       >
-        Reset
+        Reset Chat
       </button>
     </div>
   );
 };
-
-// If using PropTypes
-// ResetChat.propTypes = {
-//   onReset: PropTypes.func.isRequired,
-// };
-
 export default ResetChat;
