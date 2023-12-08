@@ -33,17 +33,19 @@ def process_message_simple_test():
 def process_message_with_chatgpt():
     data = request.json
     messages = data.get('messages', [])
+    medicalHistory = data.get('medicalHistory', '')
     model = request.args.get('model', default='gpt-3.5-turbo-instruct')
-    response = request_gpt_no_rag(messages, model)
+    response = request_gpt_no_rag(messages, medicalHistory, model)
     return response
 
 @app.route('/v1/chat/openai/rag', methods=['POST'])
 def process_message_with_rag_chatgpt():
     data = request.json
     messages = data.get('messages', [])
+    medicalHistory = data.get('medicalHistory', '')
     model = request.args.get('model', default='gpt-3.5-turbo-instruct')
     dataset = request.args.get('dataset', default='nfcorpus')
-    response = run_rag_pipeline(messages, model, dataset)
+    response = run_rag_pipeline(messages, medicalHistory, model, dataset)
     return response
 
 if __name__ == '__main__':
