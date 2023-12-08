@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const DatasetSelector = ({ isRAGEnabled, onDatasetChange, handleReset }) => {
-  const datasets = ['nfcorpus', 'pubMedQA', 'CORD19'];
+  const datasets = ['NFCorpus', 'PubMedQA', 'CORD19'];
   const [selectedDataset, setSelectedDataset] = useState('nfcorpus');
 
   useEffect(() => {

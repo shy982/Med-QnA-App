@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 
 # TODO: Maintain conversation i.e. previous chats to be taken into account. -- DONE
-# TODO: API to process uploaded document text and consider as context.
+# TODO: API to process uploaded document text and consider as context. -- DONE
 # TODO: Dropdown changes, API model change endpoints etc  -- DONE
 
 @app.route('/v1/chat/simple', methods=['POST'])
