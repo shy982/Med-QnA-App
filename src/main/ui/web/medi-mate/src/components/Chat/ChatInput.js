@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { IconArrowUp } from '@tabler/icons-react';
 import MicButton from '../SpeechRecognition/MicButton';
 import FileUploader from '../UploadContext/FileUploader';
-const ChatInput = ({ onSend }) => {
+const ChatInput = ({ onSend, setMedicalHistory }) => {
   const [content, setContent] = useState('');
   const [placeholder, setPlaceholder] = useState('Type a MediChat...');
   const [messageSent, setMessageSent] = useState(false);
@@ -10,6 +10,7 @@ const ChatInput = ({ onSend }) => {
 
   const handleFileUpload = (fileContent) => {
     console.log('Uploaded file content:', fileContent);
+    setMedicalHistory(fileContent);
   };
 
   const handleChange = (e) => {
@@ -61,8 +62,8 @@ const ChatInput = ({ onSend }) => {
       <FileUploader onFileUpload={handleFileUpload} />
       <textarea
         ref={textareaRef}
-        className="min-h-[44px] rounded-lg pl-4 pr-12 py-2 w-full focus:outline-none focus:ring-1 focus:ring-neutral-300 border-2 border-neutral-200"
-        style={{ resize: "none" }}
+        className="min-h-[44px] rounded-lg pl-4 pr-12 py-2 focus:outline-none focus:ring-1 focus:ring-neutral-300 border-2 border-neutral-200"
+        style={{ resize: "none", width:"85%" }}
         placeholder={placeholder}
         value={content}
         rows={1}

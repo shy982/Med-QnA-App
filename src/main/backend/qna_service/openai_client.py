@@ -10,12 +10,14 @@ from langchain.vectorstores import FAISS
 import os
 import pickle
 
-def request_gpt_no_rag(messages, model):
+def request_gpt_no_rag(messages, medicalHistory, model):
     load_dotenv()
     client = openai.OpenAI()
     # prompt = "\n".join([message['content'] for message in messages])
     # print(messages)
     conversation_history = "\n".join([message['content'] for message in messages])
+    if medicalHistory != '':
+        conversation_history += "\nWhile answering, also consider this as my medical history:\n" + medicalHistory
     qry = messages[-1]['content']
     answer = client.completions.create(
                               model=model,
@@ -24,10 +26,12 @@ def request_gpt_no_rag(messages, model):
                           )
     return answer.choices[0].text.strip()
 
-def run_rag_pipeline(messages, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
+def run_rag_pipeline(messages, medicalHistory, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
     load_dotenv()
     query = messages[-1]['content']
     conversation_history = "\n".join([message['content'] for message in messages])
+    if medicalHistory != '':
+        conversation_history += "\nWhile answering, also consider this as my medical history:\n" + medicalHistory
     # Load index from file
     loaded_faiss_vs = FAISS.load_local(
         # folder_path=f"src/main/backend/qna_service/datastore/vectordb/faiss/{dataset}/", # Uncomment for dev
