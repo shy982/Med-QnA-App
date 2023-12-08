@@ -7,7 +7,7 @@ import ModelSelector from '../ModelSelection/ModelSelector';
 import DatasetSelector from '../ModelSelection/DatasetSelector';
 import RAGToggle from '../ModelSelection/RagToggle';
 
-const Chat = ({ messages, loading, onSend, onReset, onModelChange, onDatasetChange, isRAGEnabled, handleRAGToggle }) => {
+const Chat = ({ messages, loading, onSend, onReset, onModelChange, onDatasetChange, isRAGEnabled, handleRAGToggle, setMedicalHistory }) => {
   return (
     <>
       <div className="flex flex-row justify-between items-center mb-4 sm:mb-8">
@@ -31,7 +31,7 @@ const Chat = ({ messages, loading, onSend, onReset, onModelChange, onDatasetChan
         )}
 
         <div className="mt-4 sm:mt-8 bottom-[56px] left-0 w-full">
-          <ChatInput onSend={onSend} />
+          <ChatInput onSend={onSend} setMedicalHistory={setMedicalHistory}/>
         </div>
       </div>
     </>

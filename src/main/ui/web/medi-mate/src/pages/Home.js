@@ -13,6 +13,7 @@ const Home = () => {
   const [selectedModel, setSelectedModel] = useState('Debug');
   const [selectedDataset, setSelectedDataset] = useState('nfcorpus');
   const [isRAGEnabled, setIsRAGEnabled] = useState(false);
+  const [medicalHistory, setMedicalHistory] = useState('');
   const messagesEndRef = useRef(null);
   const pageStyle = {
     backgroundImage: `url(${bg})`, 
@@ -54,12 +55,16 @@ const Home = () => {
       const endpoint = getApiEndpoint();
       const model = getSelectedModel(selectedModel);
       const dataset = selectedDataset;
+      const bodyPayload = {
+        messages: updatedMessages,
+        medicalHistory: medicalHistory
+      };    
       const response = await fetch(`${API_BASE_URL}${endpoint}?model=${encodeURIComponent(model)}&dataset=${encodeURIComponent(dataset)}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ messages: updatedMessages })
+        body: JSON.stringify(bodyPayload)
       });
   
       if (!response.ok) {
@@ -166,6 +171,7 @@ const Home = () => {
               onDatasetChange={handleDatasetChange}
               isRAGEnabled = {isRAGEnabled}
               handleRAGToggle={handleRAGToggle}
+              setMedicalHistory={setMedicalHistory}
             />
             <div ref={messagesEndRef} />
           </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { IconArrowUp } from '@tabler/icons-react';
 import MicButton from '../SpeechRecognition/MicButton';
 import FileUploader from '../UploadContext/FileUploader';
-const ChatInput = ({ onSend }) => {
+const ChatInput = ({ onSend, setMedicalHistory }) => {
   const [content, setContent] = useState('');
   const [placeholder, setPlaceholder] = useState('Type a MediChat...');
   const [messageSent, setMessageSent] = useState(false);
@@ -10,6 +10,7 @@ const ChatInput = ({ onSend }) => {
 
   const handleFileUpload = (fileContent) => {
     console.log('Uploaded file content:', fileContent);
+    setMedicalHistory(fileContent);
   };
 
   const handleChange = (e) => {
