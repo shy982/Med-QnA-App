@@ -15,10 +15,11 @@ def request_gpt_no_rag(messages, model):
     client = openai.OpenAI()
     # prompt = "\n".join([message['content'] for message in messages])
     # print(messages)
+    conversation_history = "\n".join([message['content'] for message in messages])
     qry = messages[-1]['content']
     answer = client.completions.create(
                               model=model,
-                              prompt = "Answer the question briefly: " + qry,
+                              prompt = "Answer the last question of this conversation briefly: " + conversation_history,
                               max_tokens = 200
                           )
     return answer.choices[0].text.strip()
@@ -26,6 +27,7 @@ def request_gpt_no_rag(messages, model):
 def run_rag_pipeline(messages, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
     load_dotenv()
     query = messages[-1]['content']
+    conversation_history = "\n".join([message['content'] for message in messages])
     # Load index from file
     loaded_faiss_vs = FAISS.load_local(
         # folder_path=f"src/main/backend/qna_service/datastore/vectordb/faiss/{dataset}/", # Uncomment for dev
@@ -36,8 +38,8 @@ def run_rag_pipeline(messages, model="gpt-3.5-turbo-instruct", dataset="nfcorpus
     # Define the RAG pipeline
     llm = OpenAI(model_name=model, openai_api_key=os.getenv("OPENAI_API_KEY"))
 
-    template = """Answer the question or Explain the topic given this additional context: {context}
-    Question: {question}"""
+    template = """Answer the last question of the conversation, given this additional context: {context}
+    Conversation: {question}"""
     prompt = ChatPromptTemplate.from_template(template)
 
     # docs_file_path = f"src/main/backend/qna_service/datastore/dataset/{dataset}/documents.pkl" # Uncomment for dev
@@ -58,6 +60,6 @@ def run_rag_pipeline(messages, model="gpt-3.5-turbo-instruct", dataset="nfcorpus
              | StrOutputParser())
 
     # Run the RAG pipeline
-    response = chain.invoke(query)
+    response = chain.invoke(conversation_history)
 
     return response.strip()

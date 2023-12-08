@@ -15,7 +15,7 @@ from qna_service.openai_client import run_rag_pipeline
 app = Flask(__name__)
 CORS(app)
 
-# TODO: Maintain conversation i.e. previous chats to be taken into account
+# TODO: Maintain conversation i.e. previous chats to be taken into account. -- DONE
 # TODO: API to process uploaded document text and consider as context.
 # TODO: Dropdown changes, API model change endpoints etc  -- DONE
 
