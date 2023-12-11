@@ -19,8 +19,6 @@ def clean_response(response):
 def request_gpt_no_rag(messages, medical_history, model):
     load_dotenv()
     client = openai.OpenAI()
-    # prompt = "\n".join([message["content"] for message in messages])
-    # print(messages)
     conversation_history = "\n".join([message["content"] for message in messages])
     if medical_history != "":
         conversation_history += "\nWhile answering, also consider this as my medical history:\n" + medical_history
