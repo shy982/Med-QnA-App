@@ -1,5 +1,7 @@
+import os
+import pickle
+
 import openai
-from dotenv import load_dotenv
 from dotenv import load_dotenv
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.llms import OpenAI
@@ -7,31 +9,31 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.vectorstores import FAISS
-import os
-import pickle
 
-def request_gpt_no_rag(messages, medicalHistory, model):
+
+def request_gpt_no_rag(messages, medical_history, model):
     load_dotenv()
     client = openai.OpenAI()
-    # prompt = "\n".join([message['content'] for message in messages])
+    # prompt = "\n".join([message["content"] for message in messages])
     # print(messages)
-    conversation_history = "\n".join([message['content'] for message in messages])
-    if medicalHistory != '':
-        conversation_history += "\nWhile answering, also consider this as my medical history:\n" + medicalHistory
-    qry = messages[-1]['content']
+    conversation_history = "\n".join([message["content"] for message in messages])
+    if medical_history != "":
+        conversation_history += "\nWhile answering, also consider this as my medical history:\n" + medical_history
+
     answer = client.completions.create(
-                              model=model,
-                              prompt = "Answer the last question of this conversation briefly: " + conversation_history,
-                              max_tokens = 200
-                          )
+        model=model,
+        prompt="Answer the last question of this conversation briefly: " + conversation_history,
+        max_tokens=200
+    )
     return answer.choices[0].text.strip()
 
-def run_rag_pipeline(messages, medicalHistory, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
+
+def run_rag_pipeline(messages, medical_history, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
     load_dotenv()
-    query = messages[-1]['content']
-    conversation_history = "\n".join([message['content'] for message in messages])
-    if medicalHistory != '':
-        conversation_history += "\nWhile answering, also consider this as my medical history:\n" + medicalHistory
+    conversation_history = "\n".join([message["content"] for message in messages])
+    if medical_history != "":
+        conversation_history += "\nWhile answering, also consider this as my medical history:\n" + medical_history
+
     # Load index from file
     loaded_faiss_vs = FAISS.load_local(
         # folder_path=f"src/main/backend/qna_service/datastore/vectordb/faiss/{dataset}/", # Uncomment for dev
@@ -57,10 +59,10 @@ def run_rag_pipeline(messages, medicalHistory, model="gpt-3.5-turbo-instruct", d
             if doc.page_content in docs:
                 ls.append(docs[doc.page_content]["text"][:800])
         return ls
-    
-    chain = ({"context": retriever | format_docs, "question": RunnablePassthrough()} 
-             | prompt 
-             | llm 
+
+    chain = ({"context": retriever | format_docs, "question": RunnablePassthrough()}
+             | prompt
+             | llm
              | StrOutputParser())
 
     # Run the RAG pipeline

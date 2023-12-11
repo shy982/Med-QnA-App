@@ -58,4 +58,3 @@ if __name__ == "__main__":
         query="what is the origin of COVID-19 (seeking range of information about the SARS-CoV-2 virus's origin, "
               "including its evolution, animal source, and first transmission into humans)",
         dataset="cord19"))
-    
