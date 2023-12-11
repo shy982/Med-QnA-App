@@ -29,9 +29,8 @@ To run the application (Production build deployment for demo purpose only, not a
 3. Wait a while for frontend and backend containers to spawn.
 4. Go to http://localhost:3000/ to start chatting
 
-# Notes:
+# Repository Handling Notes:
 
-1. Raise PR for Code updates (Anything to src directory)
-2. Push to main directly for MOM, References, Presentations, etc
-3. Read env.example to create .env for API tokens
-4. Mark TODO's as issues
+1. Raise PR on separate branch for code updates & request code owner review.
+2. Read env.example to create .env for API tokens.
+3. Mark TODO's as issues.
