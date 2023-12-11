@@ -9,7 +9,12 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.vectorstores import FAISS
+import re
 
+
+def clean_response(response):
+    cleaned_response = re.sub(r'^\W+', '', response)
+    return cleaned_response
 
 def request_gpt_no_rag(messages, medical_history, model):
     load_dotenv()
@@ -25,7 +30,7 @@ def request_gpt_no_rag(messages, medical_history, model):
         prompt="Answer the last question of this conversation briefly: " + conversation_history,
         max_tokens=200
     )
-    return answer.choices[0].text.strip()
+    return clean_response(answer.choices[0].text.strip()) if answer!= '' else "OpenAI API temporarily down :( Please try again in a while."
 
 
 def run_rag_pipeline(messages, medical_history, model="gpt-3.5-turbo-instruct", dataset="nfcorpus"):
@@ -68,4 +73,4 @@ def run_rag_pipeline(messages, medical_history, model="gpt-3.5-turbo-instruct", 
     # Run the RAG pipeline
     response = chain.invoke(conversation_history)
 
-    return response.strip()
+    return clean_response(response.strip()) if response!= '' else "OpenAI API temporarily down :( Please try again in a while."
