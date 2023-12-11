@@ -1,88 +1,90 @@
-import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
-import { IconArrowUp } from '@tabler/icons-react';
+import React, {useEffect, useRef, useState} from 'react';
+import {IconArrowUp} from '@tabler/icons-react';
 import MicButton from '../SpeechRecognition/MicButton';
 import FileUploader from '../UploadContext/FileUploader';
-const ChatInput = ({ onSend, setMedicalHistory }) => {
-  const [content, setContent] = useState('');
-  const [placeholder, setPlaceholder] = useState('Type a MediChat...');
-  const [messageSent, setMessageSent] = useState(false);
-  const textareaRef = useRef(null);
 
-  const handleFileUpload = (fileContent) => {
-    console.log('Uploaded file content:', fileContent);
-    setMedicalHistory(fileContent);
-  };
+const ChatInput = ({onSend, setMedicalHistory}) => {
+    const [content, setContent] = useState('');
+    const [placeholder, setPlaceholder] = useState('Type a MediChat...');
+    const [messageSent, setMessageSent] = useState(false);
+    const textareaRef = useRef(null);
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    if (value.length > 4000) {
-      alert("Message limit is 4000 characters");
-      return;
-    }
+    const handleFileUpload = (fileContent) => {
+        console.log('Uploaded file content:', fileContent);
+        setMedicalHistory(fileContent);
+    };
 
-    setContent(value);
-  };
+    const handleChange = (e) => {
+        const value = e.target.value;
+        if (value.length > 4000) {
+            alert("Message limit is 4000 characters");
+            return;
+        }
 
-  const handleTranscription = (transcribedText) => {
-    setContent(transcribedText);
-    if(!transcribedText)
-      setPlaceholder('Type a MediChat...');
-  };
+        setContent(value);
+    };
 
-  const updatePlaceholder = (isListening) => {
-    setPlaceholder(isListening ? 'Speak to Chat with MediMate...' : 'Type a MediChat...');
-  };
+    const handleTranscription = (transcribedText) => {
+        setContent(transcribedText);
+        if (!transcribedText)
+            setPlaceholder('Type a MediChat...');
+    };
 
-  const handleSend = () => {
-    if (!content) {
-      alert("Please enter a message");
-      return;
-    }
-    onSend({ role: "user", content });
-    setContent("");
-    setMessageSent(true);
-  };
+    const updatePlaceholder = (isListening) => {
+        setPlaceholder(isListening ? 'Speak to Chat with MediMate...' : 'Type a MediChat...');
+    };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
+    const handleSend = () => {
+        if (!content) {
+            alert("Please enter a message");
+            return;
+        }
+        onSend({role: "user", content});
+        setContent("");
+        setMessageSent(true);
+    };
 
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "inherit";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [content]);
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
+    };
 
-  return (
-    <div className="relative flex">
-      <FileUploader onFileUpload={handleFileUpload} />
-      <textarea
-        ref={textareaRef}
-        className="min-h-[44px] rounded-lg pl-4 pr-12 py-2 focus:outline-none focus:ring-1 focus:ring-neutral-300 border-2 border-neutral-200"
-        style={{ resize: "none", width:"85%" }}
-        placeholder={placeholder}
-        value={content}
-        rows={1}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
-      <button onClick={handleSend}>
-        <IconArrowUp className="absolute right-2 bottom-1.5 h-8 w-8 hover:cursor-pointer rounded-full p-1 bg-blue-500 text-white hover:opacity-80" />
-      </button>
+    useEffect(() => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = "inherit";
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
+    }, [content]);
 
-      <MicButton 
-                 onTranscription={handleTranscription} 
-                 updatePlaceholder = {updatePlaceholder} 
-                 messageSent = {messageSent} 
-                 setMessageSent = {setMessageSent}
-      />
+    return (
+        <div className="relative flex">
+            <FileUploader onFileUpload={handleFileUpload}/>
+            <textarea
+                ref={textareaRef}
+                className="min-h-[44px] rounded-lg pl-4 pr-12 py-2 focus:outline-none focus:ring-1 focus:ring-neutral-300 border-2 border-neutral-200"
+                style={{resize: "none", width: "85%"}}
+                placeholder={placeholder}
+                value={content}
+                rows={1}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+            />
+            <button onClick={handleSend}>
+                <IconArrowUp
+                    className="absolute right-2 bottom-1.5 h-8 w-8 hover:cursor-pointer rounded-full p-1 bg-blue-500 text-white hover:opacity-80"/>
+            </button>
 
-    </div>
-  );
+            <MicButton
+                onTranscription={handleTranscription}
+                updatePlaceholder={updatePlaceholder}
+                messageSent={messageSent}
+                setMessageSent={setMessageSent}
+            />
+
+        </div>
+    );
 };
 
 export default ChatInput;
