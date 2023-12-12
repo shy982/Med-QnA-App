@@ -27,7 +27,8 @@ An overview of implementation is given below.
    install ``npm``, ``node``, ``Python 3.6+`` and follow the README's of the respective
    directories. ``src/main/marshaler`` has the backend code. ``src/main/ui/web/medi-mate`` has the frontend.
 
-3. Mandatory Requirement: You'll need an `OPENAI_API_KEY` and add that to a .env file. An `env.example` is given in the root directory of the repo. To get the API follow instructions in [OpenAI API](https://openai.com/blog/openai-api)
+3. Mandatory Requirement: You'll need an `OPENAI_API_KEY` and add that to a .env file.
+   An `env.example` is given in the root directory of the repo. To get the API token follow instructions in [OpenAI API](https://openai.com/blog/openai-api)
 
 ## Running the application:
 
@@ -46,7 +47,9 @@ To run the application (Production build deployment for demo purpose only, not a
 
 ## Collaboration: 
 
-We appreciate any ideas and contributions from the fellow open-source community. We aim to make this application accessible and modularized enough to use as a plug-and-play model for Evidence-based medicine & Closed Domain Question Answering. 
+We appreciate any ideas and contributions from the fellow open-source community. 
+
+We aim to make this application accessible and modularized enough to use as a plug-and-play model for Evidence-based medicine & Closed Domain Question Answering. 
 
 Please feel free to contact the authors if you are interested to contribute or collaborate: 
 
