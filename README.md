@@ -16,6 +16,7 @@ An overview of implementation is given below.
 1. Have ``git`` installed on your system. In a terminal navigate to a directory to save this project.
 2. Do ``git clone git@github.com:shy982/Med-QnA-App.git``.
 3. Do ``cd ./Med-QnA-App`` to enter root directory of project.
+4. Refer to the [Project Hierarchy](https://github.com/shy982/Med-QnA-App/tree/main/ref/ProjectStructure.md) and [API Documentation](https://github.com/shy982/Med-QnA-App/tree/main/ref/APIDocs.md) for related development information.
 
 ## Requirements:
 
@@ -51,4 +52,4 @@ Please feel free to contact the authors if you are interested to contribute or c
 
 [Shyam Renjith](https://www.github.com/shy982)
 [Sanidhya Singal](https://www.github.com/sayhitosandy)
-Hyrum Eddington
+[Hyrum Eddington](https://github.com/hyedd77)

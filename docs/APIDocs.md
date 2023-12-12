@@ -3,7 +3,7 @@
 # API Documentation
 
 ## Overview
-This document outlines the available endpoints in the MediMate Q&A application. The application provides endpoints for processing user messages using different methods, including simple text processing, OpenAI's GPT-3.5 model, and a Retrieval-Augmented Generation (RAG) approach.
+This document outlines the available endpoints in the MediMate Q&amp;A application. The application provides endpoints for processing user messages using different methods, including simple text processing, OpenAI's GPT-3.5 model, and a Retrieval-Augmented Generation (RAG) approach.
 
 ## Endpoints
 
