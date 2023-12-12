@@ -5,7 +5,6 @@ import Footer from '../components/Layout/Footer';
 import Navbar from '../components/Layout/Navbar';
 import {API_BASE_URL, API_ENDPOINTS, MODELS_AVAILABLE} from './APIConfig';
 import logo from '../store/logo.png'
-import bg from '../store/bg.png'
 
 const Home = () => {
     const [messages, setMessages] = useState([]);
@@ -15,11 +14,6 @@ const Home = () => {
     const [isRAGEnabled, setIsRAGEnabled] = useState(false);
     const [medicalHistory, setMedicalHistory] = useState('');
     const messagesEndRef = useRef(null);
-    const pageStyle = {
-        backgroundImage: `url(${bg})`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-    };
     const getApiEndpoint = () => {
         if (selectedModel === "Debug")
             return API_ENDPOINTS.SIMPLE_CHAT;
