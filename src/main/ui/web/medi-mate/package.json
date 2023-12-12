@@ -18,7 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --loglevel warn --write \"{src/components, src/pages}/**/*.{jsx,js}\""
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "prettier": "3.1.1",
     "tailwindcss": "^3.3.5"
   }
 }
