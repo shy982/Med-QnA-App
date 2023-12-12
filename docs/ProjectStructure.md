@@ -1,3 +1,4 @@
+```
 Med-QnA-App/
 ├── src/
 │   ├── main/
@@ -28,3 +29,4 @@ Med-QnA-App/
 ├── package.json                            # NPM package configuration
 ├── requirements.txt                        # Python dependencies
 └── ...                                     # Docker compose and other files
+```

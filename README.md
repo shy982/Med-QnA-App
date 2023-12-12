@@ -50,6 +50,6 @@ We appreciate any ideas and contributions from the fellow open-source community.
 
 Please feel free to contact the authors if you are interested to contribute or collaborate: 
 
-[Shyam Renjith](https://www.github.com/shy982)
-[Sanidhya Singal](https://www.github.com/sayhitosandy)
-[Hyrum Eddington](https://github.com/hyedd77)
+- [Shyam Renjith](https://www.github.com/shy982)
+- [Sanidhya Singal](https://www.github.com/sayhitosandy)
+- [Hyrum Eddington](https://github.com/hyedd77)
