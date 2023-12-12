@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --loglevel warn --write \"{src/components, src/pages}/**/*.{jsx,js}\"",
+    "format": "prettier --loglevel warn --write \"{src/components, src/pages}/**/*.{jsx,js}\""
   },
   "eslintConfig": {
     "extends": [
