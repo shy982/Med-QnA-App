@@ -9,14 +9,14 @@ of MED 277, UCSD Fall '23
 
 An overview of implementation is given below. 
 
-![Alt text](image.png)
-
+![Implementation-Img](process.png)
+![UI-Image](ui-sample.png)
 ## Setup:
 
 1. Have ``git`` installed on your system. In a terminal navigate to a directory to save this project.
 2. Do ``git clone git@github.com:shy982/Med-QnA-App.git``.
 3. Do ``cd ./Med-QnA-App`` to enter root directory of project.
-4. Refer to the [Project Hierarchy](https://github.com/shy982/Med-QnA-App/tree/main/ref/ProjectStructure.md) and [API Documentation](https://github.com/shy982/Med-QnA-App/tree/main/ref/APIDocs.md) for related development information.
+4. Refer to the [Project Hierarchy](https://github.com/shy982/Med-QnA-App/tree/main/docs/ProjectStructure.md) and [API Documentation](https://github.com/shy982/Med-QnA-App/tree/main/docs/APIDocs.md) for related development information.
 
 ## Requirements:
 
