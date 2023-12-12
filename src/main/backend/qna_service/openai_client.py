@@ -40,7 +40,7 @@ def run_rag_pipeline(messages, medical_history, model="gpt-3.5-turbo-instruct", 
     # Load index from file
     loaded_faiss_vs = FAISS.load_local(
         # folder_path=f"src/main/backend/qna_service/datastore/vectordb/faiss/{dataset}/", # Uncomment for dev
-        folder_path=f"./qna_service/datastore/vectordb/faiss/{dataset.lower()}/",
+        folder_path=f"./qna_service/datastore/vectordb/faiss/{dataset.lower()}/",   # Comment for dev
         embeddings=OpenAIEmbeddings())
     retriever = loaded_faiss_vs.as_retriever(search_kwargs={"k": 5})
 
@@ -52,7 +52,7 @@ def run_rag_pipeline(messages, medical_history, model="gpt-3.5-turbo-instruct", 
     prompt = ChatPromptTemplate.from_template(template)
 
     # docs_file_path = f"src/main/backend/qna_service/datastore/dataset/{dataset}/documents.pkl" # Uncomment for dev
-    docs_file_path = f"./qna_service/datastore/dataset/{dataset.lower()}/documents.pkl"
+    docs_file_path = f"./qna_service/datastore/dataset/{dataset.lower()}/documents.pkl" # Comment for dev
     with open(docs_file_path, "rb") as file:
         docs = pickle.load(file)
 
